@@ -70,8 +70,8 @@ const AppLayout = () => {
           </button>
         </Header>
 
-        <main className="flex-1 overflow-y-auto bg-white dark:bg-gray-900 transition-colors duration-200">
-          <div className="p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto bg-gray-500 dark:bg-gray-900 transition-colors duration-200">
+        <div className="bg-white dark:bg-gray-800 rounded-mds shadow-sm transition-colors duration-200">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/users" element={<Users />} />

@@ -7,36 +7,29 @@ const DarkModeContext = createContext()
 export function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
-  // Initialize theme on mount
   useEffect(() => {
-    // 1. Check localStorage for saved preference
+    // Check for saved preference first
     const savedTheme = localStorage.getItem("theme")
-    // 2. Check system preference
+    
+    // If no saved preference, check system preference
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
     
-    // Set initial state - prefers saved theme, falls back to system preference
+    // Determine initial mode
     const initialMode = savedTheme ? savedTheme === "dark" : systemPrefersDark
     setIsDarkMode(initialMode)
     applyTheme(initialMode)
+
+    // Cleanup function
+    return () => {}
   }, [])
 
-  // Apply theme changes to DOM
   const applyTheme = (darkMode) => {
-    const root = document.documentElement
+    if (typeof document === 'undefined') return // Safety check for SSR
     
-    if (darkMode) {
-      root.classList.add("dark")
-      root.setAttribute("data-theme", "dark")
-      root.style.colorScheme = "dark"
-      document.body.style.backgroundColor = "#0f172a" // dark:bg-slate-900
-      document.body.style.color = "#f8fafc" // dark:text-slate-100
-    } else {
-      root.classList.remove("dark")
-      root.setAttribute("data-theme", "light")
-      root.style.colorScheme = "light"
-      document.body.style.backgroundColor = "#f1f5f9" // bg-slate-100
-      document.body.style.color = "#1e293b" // text-slate-800
-    }
+    const root = document.documentElement
+    root.classList.toggle('dark', darkMode)
+    root.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    root.style.colorScheme = darkMode ? 'dark' : 'light'
   }
 
   const toggleDarkMode = () => {

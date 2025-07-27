@@ -49,18 +49,18 @@ const Header = ({ children }) => {
     <header className={`sticky top-0 z-30 border-b transition-colors duration-200 ${
       isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
     }`}>
-      <div className="flex items-center justify-between px-6 py-5 sm:px-6">
+      <div className="flex items-center justify-between px-4 py-3 sm:px-6">
         {/* Mobile Menu Button */}
         {children}
 
         {/* Page Title */}
-        <div className="flex-1 ml-4 md:ml-0">
-          <h2 className={`text-xl font-semibold ${
+        <div className="flex-1 ml-3 sm:ml-4">
+          <h2 className={`text-lg sm:text-xl font-semibold ${
             isDarkMode ? "text-white" : "text-gray-800"
           }`}>
             {getPageTitle()}
           </h2>
-          <p className={`text-sm ${
+          <p className={`text-xs sm:text-sm ${
             isDarkMode ? "text-gray-400" : "text-gray-500"
           }`}>
             Welcome back, {authUser?.name || "Admin"}
@@ -68,8 +68,8 @@ const Header = ({ children }) => {
         </div>
 
         {/* Right Side Controls */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          {/* Dark Mode Toggle */}
+        <div className="flex items-center space-x-1 sm:space-x-3">
+          {/* Dark Mode Toggle - Now first in the sequence */}
           <button
             onClick={toggleDarkMode}
             className={`p-2 rounded-lg hover:bg-opacity-20 transition-colors ${
@@ -82,6 +82,16 @@ const Header = ({ children }) => {
             ) : (
               <Moon className="h-5 w-5" />
             )}
+          </button>
+
+          {/* Settings Icon - Now between Dark Mode and Notifications */}
+          <button
+            className={`p-2 rounded-lg hover:bg-opacity-20 transition-colors ${
+              isDarkMode ? "hover:bg-gray-700 text-gray-300" : "hover:bg-gray-100 text-gray-600"
+            }`}
+            aria-label="Settings"
+          >
+            <Settings className="h-5 w-5" />
           </button>
 
           {/* Notifications */}
@@ -97,26 +107,27 @@ const Header = ({ children }) => {
             </button>
           </div>
 
-          {/* User Dropdown */}
+          {/* User Dropdown - Now with always-visible name on small screens */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`flex items-center gap-3 p-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-1 sm:gap-3 p-1 sm:p-2 rounded-lg transition-colors ${
                 isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
               }`}
               aria-label="User menu"
             >
-              <div className="text-left hidden sm:block">
-                <p className={`text-sm font-medium ${
+              {/* Always show name, even on small screens */}
+              <div className="text-left">
+                <p className={`text-xs sm:text-sm font-medium ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}>
-                  {authUser?.name || "Admin"}
+                  {authUser?.name.split(' ')[0] || "Admin"} {/* Show only first name on small screens */}
                 </p>
               </div>
-              <div className={`h-8 w-8 rounded-full flex items-center justify-center ${
+              <div className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center ${
                 isDarkMode ? "bg-blue-700" : "bg-blue-600"
               }`}>
-                <User className="h-4 w-4 text-white" />
+                <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
               </div>
             </button>
 

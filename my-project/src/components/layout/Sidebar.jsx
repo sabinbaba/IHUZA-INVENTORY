@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 import { Package, Users, AlignCenter, Laptop, Layers, LogOut } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
 import { useDarkMode } from "../../context/DarkModeContext"
+import Swal from "sweetalert2"
 
 export default function Sidebar({ onClose }) {
   const location = useLocation()
@@ -11,17 +12,30 @@ export default function Sidebar({ onClose }) {
   const { isDarkMode } = useDarkMode()
 
   const navItems = [
-    { name: "Dashboard", icon: <Laptop />, path: "/" }, // Changed to Laptop
-    { name: "Users", icon: <Users />, path: "/users", count: "116" },
-    { name: "Products", icon: <Package />, path: "/products", count: "100" },
-    { name: "Assignments", icon: <AlignCenter />, path: "/assignments", count: "10" }, // Changed to AlignCenter
-    { name: "Categories", icon: <Layers />, path: "/categories" }, // Changed to Layers
+    { name: "Dashboard", icon: <Laptop size={18} />, path: "/" },
+    { name: "Users", icon: <Users size={18} />, path: "/users", count: "116" },
+    { name: "Products", icon: <Package size={18} />, path: "/products", count: "100" },
+    { name: "Assignments", icon: <AlignCenter size={18} />, path: "/assignments", count: "10" },
+    { name: "Categories", icon: <Layers size={18} />, path: "/categories" },
   ]
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
-      logout()
-    }
+    Swal.fire({
+      title: 'Logout Confirmation',
+      text: 'Are you sure you want to end your current session?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3b82f6',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, log out',
+      cancelButtonText: 'Cancel',
+      background: isDarkMode ? '#1e293b' : '#ffffff',
+      color: isDarkMode ? '#f8fafc' : '#1e293b',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+      }
+    })
   }
 
   const handleItemClick = () => {
@@ -31,25 +45,26 @@ export default function Sidebar({ onClose }) {
   }
 
   return (
-    <div
-      className="w-84 h-full flex flex-col border-r shadow-sm transition-colors duration-200"
-      style={{
-        backgroundColor: isDarkMode ? "#1e293b" : "#f8fafc",
-        borderColor: isDarkMode ? "#334155" : "#e2e8f0",
-      }}
-    >
+    <div className={`w-64 h-full flex flex-col border-r shadow-sm transition-colors duration-200 ${
+      isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'
+    }`}>
       {/* Logo Section */}
-      <div 
-        className="p-6 border-b transition-colors duration-200" 
-        style={{ borderColor: isDarkMode ? "#334155" : "#e2e8f0" }}
-      >
+      <div className={`p-6 border-b transition-colors duration-200 ${
+        isDarkMode ? 'border-gray-700' : 'border-gray-200'
+      }`}>
         <div className="flex items-center gap-2 mb-1">
-          <Package className="h-6 w-6 text-blue-600 border rounded-md" />
-          <h1 className="text-xl font-bold" style={{ color: isDarkMode ? "#f8fafc" : "#1e293b" }}>
+          <div className="bg-blue-600 text-white p-2 rounded-md">
+            <Package className="h-5 w-5" />
+          </div>
+          <h1 className={`text-xl font-bold ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             iHUZA
           </h1>
         </div>
-        <p className="text-xs font-medium ml-8" style={{ color: isDarkMode ? "#94a3b8" : "#64748b" }}>
+        <p className={`text-xs font-medium ml-11 ${
+          isDarkMode ? 'text-gray-400' : 'text-gray-500'
+        }`}>
           INVENTORY
         </p>
       </div>
@@ -63,61 +78,37 @@ export default function Sidebar({ onClose }) {
               key={item.name}
               to={item.path}
               onClick={handleItemClick}
-              className="flex items-center justify-between p-3 rounded-lg transition-all duration-200"
-              style={{
-                backgroundColor: isActive 
-                  ? isDarkMode 
-                    ? "#1e40af" 
-                    : "#eff6ff" 
-                  : "transparent",
-                color: isActive 
-                  ? "#1d4ed8" 
-                  : isDarkMode 
-                    ? "#e2e8f0" 
-                    : "#374151",
-                border: isActive 
-                  ? isDarkMode 
-                    ? "1px solid #1e40af" 
-                    : "1px solid #dbeafe" 
-                  : "1px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive) {
-                  e.target.style.backgroundColor = isDarkMode ? "#334155" : "#f1f5f9"
-                  e.target.style.color = isDarkMode ? "#ffffff" : "#1e293b"
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) {
-                  e.target.style.backgroundColor = "transparent"
-                  e.target.style.color = isDarkMode ? "#e2e8f0" : "#374151"
-                }
-              }}
+              className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
+                isActive
+                  ? isDarkMode
+                    ? 'bg-blue-900/30 text-white border border-blue-800'
+                    : 'bg-blue-50 text-blue-700 border border-blue-200'
+                  : isDarkMode
+                    ? 'text-gray-300 hover:bg-gray-700 hover:text-white border border-transparent'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-transparent'
+              }`}
             >
               <div className="flex items-center gap-3">
-                <span style={{ color: isActive ? "#2563eb" : isDarkMode ? "#94a3b8" : "#64748b" }}>
+                <span className={isActive 
+                  ? 'text-blue-500' 
+                  : isDarkMode 
+                    ? 'text-gray-400' 
+                    : 'text-gray-500'
+                }>
                   {item.icon}
                 </span>
                 <span className="font-medium">{item.name}</span>
               </div>
               {item.count && (
-                <span
-                  className="text-xs px-2 py-1 rounded-full font-medium"
-                  style={{
-                    backgroundColor: isActive 
-                      ? isDarkMode 
-                        ? "#1e40af" 
-                        : "#dbeafe" 
-                      : isDarkMode 
-                        ? "#334155" 
-                        : "#f1f5f9",
-                    color: isActive 
-                      ? "#1d4ed8" 
-                      : isDarkMode 
-                        ? "#e2e8f0" 
-                        : "#64748b",
-                  }}
-                >
+                <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                  isActive
+                    ? isDarkMode
+                      ? 'bg-blue-800 text-blue-100'
+                      : 'bg-blue-100 text-blue-800'
+                    : isDarkMode
+                      ? 'bg-gray-700 text-gray-300'
+                      : 'bg-gray-200 text-gray-600'
+                }`}>
                   {item.count}
                 </span>
               )}
@@ -129,19 +120,11 @@ export default function Sidebar({ onClose }) {
         <div className="pt-8">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 p-3 rounded-lg w-full transition-all duration-200"
-            style={{ 
-              color: isDarkMode ? "#e2e8f0" : "#374151",
-              backgroundColor: isDarkMode ? "transparent" : "transparent"
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = isDarkMode ? "#334155" : "#f1f5f9"
-              e.target.style.color = isDarkMode ? "#ffffff" : "#1e293b"
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = "transparent"
-              e.target.style.color = isDarkMode ? "#e2e8f0" : "#374151"
-            }}
+            className={`flex items-center gap-3 p-3 rounded-lg w-full transition-all duration-200 ${
+              isDarkMode
+                ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+            }`}
           >
             <LogOut className="h-4 w-4" />
             <span className="font-medium">Logout</span>
