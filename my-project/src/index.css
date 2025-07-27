@@ -1,1 +1,67 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-900: #1e3a8a;
+
+  /* Custom colors matching the PDF */
+  --color-sidebar: #f8fafc;
+  --color-main-bg: #f1f5f9;
+  --color-card-bg: #ffffff;
+  --color-blue-primary: #3b82f6;
+  --color-blue-secondary: #1e40af;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+}
+
+/* Light mode is default */
+:root {
+  color-scheme: light;
+}
+
+/* Dark mode only when .dark class is present */
+.dark {
+  color-scheme: dark;
+}
+
+/* Body background matching PDF */
+body {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+body.dark {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Custom utility classes */
+.bg-sidebar {
+  background-color: #f8fafc;
+}
+
+.bg-main {
+  background-color: #f1f5f9;
+}
+
+.text-primary {
+  color: #1e293b;
+}
+
+.text-secondary {
+  color: #64748b;
+}
+
+.border-custom {
+  border-color: #e2e8f0;
+}
