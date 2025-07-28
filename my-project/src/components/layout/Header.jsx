@@ -55,7 +55,7 @@ const Header = ({ children }) => {
 
         {/* Page Title */}
         <div className="flex-1 ml-3 sm:ml-4">
-          <h2 className={`text-lg sm:text-xl font-semibold ${
+          <h2 className={`text-lg sm:text-2xl font-bold ${
             isDarkMode ? "text-white" : "text-gray-800"
           }`}>
             {getPageTitle()}

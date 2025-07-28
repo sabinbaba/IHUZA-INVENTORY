@@ -53,7 +53,7 @@ export default function Sidebar({ onClose }) {
         isDarkMode ? 'border-gray-700' : 'border-gray-200'
       }`}>
         <div className="flex items-center gap-2 mb-1">
-          <div className="bg-blue-600 text-white p-2 rounded-md">
+          <div className="bg-blue-600 text-white p-2 rounded-md mt-4">
             <Package className="h-5 w-5" />
           </div>
           <h1 className={`text-xl font-bold ${
@@ -81,11 +81,11 @@ export default function Sidebar({ onClose }) {
               className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                 isActive
                   ? isDarkMode
-                    ? 'bg-blue-900/30 text-white border border-blue-800'
-                    : 'bg-blue-50 text-blue-700 border border-blue-200'
+                    ? 'bg-blue-900/30 text-purple-200 border border-gray-900'
+                    : 'bg-blue-50 text-blue-700 border border-blue-100'
                   : isDarkMode
-                    ? 'text-gray-300 hover:bg-gray-700 hover:text-white border border-transparent'
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-transparent'
+                    ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-500 border border-transparent'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 border border-transparent'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ export default function Sidebar({ onClose }) {
         <div className="pt-8">
           <button
             onClick={handleLogout}
-            className={`flex items-center gap-3 p-3 rounded-lg w-full transition-all duration-200 ${
+            className={`flex items-center gap-3 p-3  w-full transition-all duration-200 ${
               isDarkMode
                 ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
                 : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'

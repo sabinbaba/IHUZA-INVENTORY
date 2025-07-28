@@ -28,7 +28,7 @@ export default function StatusCard() {
       <div className="flex items-center mt-4">
         <CircleCheckBig className="h-5 w-5 text-green-400 mr-2 ml-13" />
         <span className={`text-sm ${
-          isDarkMode ? "text-blue-200 ml-14" : "text-blue-100 "
+          isDarkMode ? "text-blue-200 " : "text-blue-100 "
         }`}>
           All Systems Operational
         </span>

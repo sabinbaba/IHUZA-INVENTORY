@@ -102,12 +102,12 @@ const LoginForm = () => {
             </button>
           </div>
 
-          <div className="text-sm text-center text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
+          {/* <div className="text-sm text-center text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
             <p className="font-medium mb-2">Demo Accounts:</p>
             <p>Admin: admin@ihuza.com / admin123</p>
             <p>Manager: manager@ihuza.com / manager123</p>
             <p>Staff: staff@ihuza.com / staff123</p>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>
